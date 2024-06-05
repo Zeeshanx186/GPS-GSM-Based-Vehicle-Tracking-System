@@ -30,3 +30,59 @@ There are a lot of ways to design a GPS tracker like you can choose GSM sim 900A
 - OLED 1.44’ SPI 128*128 DISPLAY
 - SIM card (It can be Zong, Telenor, Jazz, etc.)
 
+# Interfacing Sim 900 With ARDUINO
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/a3e1a864-b1c1-4d7d-a6ea-af101defede5)
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/df5bed3c-edd0-4f3f-8c1a-35bcbb8bfc04)
+
+# SENDING MESSAGE:
+
+To send an SMS, upload the code below to your Arduino board.
+
+/*********
+Complete project details at https://randomnerdtutorials.com
+*********/
+#include
+// Configure software serial port SoftwareSerial SIM900(7, 8); void setup() {
+// Arduino communicates with SIM900 GSM shield at a baud rate of 19200
+// Make sure that corresponds to the baud rate of your module
+SIM900.begin(19200);
+// Give time to your GSM shield log on to network delay(20000);
+
+// Send the SMS sendSMS();} void loop() {
+} void sendSMS() {
+// AT command to set SIM900 to SMS mode SIM900.print("AT+CMGF=1\r"); delay(100);
+
+// REPLACE THE X's WITH THE RECIPIENT'S MOBILE NUMBER
+// USE INTERNATIONAL FORMAT CODE FOR MOBILE NUMBERS SIM900.println("AT+CMGS=\"+XXXXXXXXXXXX\"");
+delay(100);
+
+// REPLACE WITH YOUR OWN SMS MESSAGE CONTENT SIM900.println("Message example from Arduino
+Uno."); delay(100);
+
+// End AT command with a ^Z, ASCII code 26 SIM900.println((char)26); delay(100);
+SIM900.println();
+// Give module time to send SMS delay(5000); }
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/56df59d6-bcf2-42ca-8e91-7477b2034ebd)
+
+# System Design
+
+In this portion we consider that our GSM module should be bottom of all of the components. Then at the top of the GSM we place our PCB. Then after that at the top of PCB we place TFT oled and GPS module. Instead of this, The design process has several layers to it. Electrical Design, Software Design, User Interface and Final Hardware Assembly. The next sections we describe our Design activities. 
+# Electrical Circuit
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/0fd37fba-334f-4b03-b42e-0ff5f10a3d81)
+
+Before designing PCB board first we thought that we properly place our PCB on GSM SIM900. So for that purpose we palce each and every component in Electrical schematic according to SIM900 configuration.Then we start working to design our pcb, we worked on eagle software for designing purpose. In eagle schematic we used one 2x3 pin connector for our GSM that is connected to GND, 0(RXD), and 1(TXD) to the microcontroller atmega328P and we also used one extra pin header for GSM for placing purpose. A 4 pin header is also used for GPS that is connected to pins GND, VCC, D11, and D12 of the controller. Moreover, we also used one 8 pin header for OLED that is connected to microcontroller with the following pin configuration 
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/04a275d8-cc50-42f7-9293-7494617f9a12)
+
+
+# PCB LAYOUT
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/ad9d19ac-7612-4bc6-9e7d-0d88f5c90bcb)
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/7473cfd2-02c0-4689-926b-565f11a49a7a)
+
+# BOM for PCB
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/877f00ef-bf58-4b29-b6fa-b1814c3e2306)
+
+# After Complete Soldering
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/2e136f17-137b-4186-861d-0f9fb1b7ba8b)
+# Flow Chart
+
+![image](https://github.com/Zeeshanx186/GPS-GSM-Based-Vehicle-Tracking-System/assets/101282364/d0349018-b279-499e-b5f6-c0d0a64db009)
